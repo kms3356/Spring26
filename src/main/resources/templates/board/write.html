@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.error {
+	color: red;
+	font-size: 0.7em;
+	font-style: italic;}
+</style>
+<script>
+	let checkForm = function() {
+		let form = document.writeForm
+		if(form.title.value == '') {
+			alert('제목은 필수 항목입니다.')
+			form.title.focus()
+			return false
+		}
+		
+		if(form.writer.value == '') {
+			alert('작성자는 필수 항목입니다.')
+			form.writer.focus()
+			return false
+		}
+		
+		if(form.content.value == '') {
+			alert('내용은 필수 항목입니다.')
+			form.content.focus()
+			return false
+		}
+	}
+</script>
+</head>
+<body>
+	<h2>새글 등록폼</h2>
+	<hr>
+	<form th:object="${boardVO}" method="post">
+		<table border="1">
+			<tr>
+				<th>제목</th>
+				<td>
+					<input type="text" th:field="*{title}">
+					<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td>
+					<input type="text" th:field="*{writer}">
+					<span th:if="${#fields.hasErrors('writer')}" th:errors="*{writer}" class="error"></span>
+				</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td>
+					<textarea name="content" cols="30" rows="5"></textarea>
+					<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error"></span>
+				</td>
+			</tr>
+		</table>
+		<button type="submit">등록</button>
+
+	</form>
+</body>
+</html>

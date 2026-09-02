@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>MAIN PAGE</h1>
+	<h2 th:text="${message}"></h2>
+	<p>
+		<a href="/board-mvc/board">게시판</a>
+		<a href="/board-mvc/member">회원</a>
+		<a th:href="@{/member/register}">
+			<button type="button">회원가입</button>
+		</a>
+		
+	</p>
+</body>
+</html>
