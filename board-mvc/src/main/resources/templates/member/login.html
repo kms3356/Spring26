@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script th:inline="javascript">
+	if([[${msg}]] != null)
+		alert([[${msg}]])
+</script>
+</head>
+<body>
+	<hr>
+	<h2>로그인</h2>
+	<hr>
+	<form th:action="@{/member/login}" method="post">
+		<table border="1">
+			<tr>
+				<th>ID</th>
+				<td><input type="text" name="id"></td>
+			</tr>
+			<tr>
+				<th>PASSWORD</th>
+				<td><input type="text" name="password"></td>
+			</tr>
+		</table>
+		<br>
+		<button>로그인</button>
+	</form>
+</body>
+</html>

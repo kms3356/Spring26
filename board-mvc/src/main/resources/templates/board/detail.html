@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script th:inline="javascript">
+
+	document.addEventListener('DOMContentLoaded', function() {
+		
+		let listBtn = document.getElementById("lBtn")
+		const mBtn = document.getElementById("mBtn")
+		const dBtn = document.querySelector('#dBtn')
+
+		listBtn.addEventListener('click', function() {
+			location.href = [[@{/board}]]
+			//location.href = [[@{/board}]]
+		})
+		
+		mBtn.addEventListener('click', function() {
+			// get방식
+			location.href = [[@{/board/modify/{no}(no=${board.no})}]]
+		})
+
+		dBtn.addEventListener('click', async function() {
+			//delete방식
+			let response = await fetch([[@{/board/{no}(no=${board.no})}]], {
+				method: 'delete'
+			})
+			
+			if(response.ok) {
+				alert('[[${board.no}]]번 게시글 삭제완료...')
+				location.href = [[@{/board}]]
+			}
+		})
+	})
+	
+	document.addEventListener('DOMContentLoaded', function() {
+		/*댓글*/
+		let replyAddBtn = document.getElementById('replyAddBtn')
+		replyAddBtn.addEventListener('click', function() {
+			let writer = document.replyForm.writer
+			let content = document.replyForm.content
+			
+			fetch('[[@{/reply/{no} (no=${board.no})}]]', {
+				method: 'post'
+			})
+		})
+	})
+</script>
+</head>
+<body>
+	<h2>상세게시글</h2>
+	<hr>
+	
+	<table border="1">
+		<tr>
+			<th>번호</th>
+			<td th:text="${board.no}"></td>
+		</tr>
+		<tr>
+			<th>제목</th>
+			<td th:text="${board.title}"></td>
+		</tr>
+		<tr>
+			<th>작성자</th>
+			<td th:text="${board.writer}"></td>
+		</tr>
+		<tr>
+			<th>내용</th>
+			<td th:text="${board.content}"></td>
+		</tr>
+		<tr>
+			<th>조회수</th>
+			<td th:text="${board.viewCnt}"></td>
+		</tr>
+		<tr>
+			<th>등록일</th>
+			<td th:text="${board.regDate}"></td>
+		</tr>
+		
+	</table>
+	
+	
+	<button type="button" id="lBtn">목록</button>
+	<button type="button" id="mBtn">수정</button>
+	<button type="button" id="dBtn">삭제</button>
+	<hr>
+	<form>
+		댓글 : <input type="text" name="content">
+		작성자 : <input type="text" name="writer">
+		<button type="button" id="replyAddBtn">댓글등록</button>
+	</form>
+</body>
+</html>

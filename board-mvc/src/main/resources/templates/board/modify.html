@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script th:inline="javascript">
+	document.addEventListener('DOMContentLoaded', function() {
+		
+		const cBtn = document.querySelector('#cBtn')
+
+		cBtn.addEventListener('click', function() {
+			location.href = [[@{/board}]]
+		})
+	})
+</script>
+</head>
+<body>
+	<h2>상세게시글</h2>
+	<hr>
+	<form th:object="${board}" method="post">
+		<table border="1">
+			<tr>
+				<th>제목</th>
+				<td> <input type="text" th:field="${board.title}"></td>
+			</tr>
+			<tr>
+				<th>작성자</th>
+				<td> <input type="text" th:field="${board.writer}"></td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td> <input type="text" th:field="${board.content}"></td>
+			</tr>
+		</table>
+		<button>수정</button>
+	</form>
+	<button type="button" id="cBtn">취소</button>
+</body>
+</html>

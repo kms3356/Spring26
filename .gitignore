@@ -18,3 +18,4 @@ Thumbs.db
 
 # 기타 민감한 개인 설정 파일 (필요 시 주석 해제)
 # application-secret.properties
+/.metadata/
