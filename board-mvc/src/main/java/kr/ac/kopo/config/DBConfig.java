@@ -17,7 +17,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 @MapperScan("kr.ac.kopo.mapper")
 @PropertySource("classpath:/config/db.properties")
 // root 컨텍스트: service, dao 계층만 스캔 (controller는 WebConfig가 담당)
-@ComponentScan(basePackages = {"kr.ac.kopo.board", "kr.ac.kopo.member"})
+@ComponentScan(basePackages = {"kr.ac.kopo.board", "kr.ac.kopo.member", "kr.ac.kopo.reply"})
 @Configuration
 public class DBConfig {
 

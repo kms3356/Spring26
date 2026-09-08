@@ -107,6 +107,15 @@
 		    <version>3.5.19</version>
 		    <scope>compile</scope>
 		</dependency>
+		<!-- Source: https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<!-- 자바 객체를 JSON으로 변경해주는 라이브러리 -->
+		<!-- 주의: Spring 6.2는 Jackson 2(com.fasterxml)만 지원. Jackson 3(tools.jackson)은 Spring 7부터 -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.22.2</version>
+		    <scope>compile</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -7,6 +7,8 @@
 
 	document.addEventListener('DOMContentLoaded', function() {
 		
+		getReplyList()
+		
 		let listBtn = document.getElementById("lBtn")
 		const mBtn = document.getElementById("mBtn")
 		const dBtn = document.querySelector('#dBtn')
@@ -37,15 +39,45 @@
 	document.addEventListener('DOMContentLoaded', function() {
 		/*댓글*/
 		let replyAddBtn = document.getElementById('replyAddBtn')
-		replyAddBtn.addEventListener('click', function() {
+		replyAddBtn.addEventListener('click', async function() {
 			let writer = document.replyForm.writer
 			let content = document.replyForm.content
 			
-			fetch('[[@{/reply/{no} (no=${board.no})}]]', {
-				method: 'post'
+			let response = await fetch([[@{/reply}]], {
+				method: 'post',
+				headers: {
+					'content-type': 'application/x-www-form-urlencoded'
+				},
+				body: new URLSearchParams({
+					content: content.value,
+					writer: writer.value,
+					boardNo: /*[[${board.no}]]*/ 0
+				})
 			})
+			if(response.ok) {
+				writer.value = ''
+				content.value = ''
+				alert('댓글등록 성공')
+				getReplyList()
+			} else {
+				alert('댓글등록 실패')
+			}
 		})
 	})
+	
+	let getReplyList = async function() {
+		let boardNo = /*[[${board.no}]]*/ 0
+		let params = new URLSearchParams({ boardNo: boardNo })
+		let response = await fetch([[@{/reply}]] + '?' + params.toString())
+		
+		if(!response.ok) return
+		
+		let replyList = await response.json()
+		document.getElementById('replyTest').innerHTML = 
+				replyList.map(r =>
+						`<div>${r.writer} | ${r.content} | ${r.regDate}</div>`
+				).join('')		
+	}
 </script>
 </head>
 <body>
@@ -85,10 +117,11 @@
 	<button type="button" id="mBtn">수정</button>
 	<button type="button" id="dBtn">삭제</button>
 	<hr>
-	<form>
+	<form name="replyForm" enctype="application/x-www-form-urlencoded">
 		댓글 : <input type="text" name="content">
 		작성자 : <input type="text" name="writer">
 		<button type="button" id="replyAddBtn">댓글등록</button>
 	</form>
+	<div id="replyTest"></div>
 </body>
 </html>
